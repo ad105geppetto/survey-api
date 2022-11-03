@@ -33,6 +33,20 @@
    - [개요](#1-개요)
 
    - [AWS 아키텍쳐](#2-aws-아키텍쳐)
+   
+      - [템플릿 설정](#템플릿-설정)
+      
+      - [Auto-Scailing 설정](#Auto-Scailing-설정)
+      
+      - [보안그룹 설정](#보안그룹-설정)
+      
+      - [인스턴스에 서버 설치 및 실행](#인스턴스에-서버-설치-및-실행)
+      
+      - [AMI 이미지 생성](#AMI-이미지-생성)
+      
+      - [대상 그룹 설정](#대상-그룹-설정)
+      
+      - [로드 밸런서 설정](#로드-밸런서-설정)
 
    - [절차 및 진행](#3-절차-및-실행)
 
@@ -146,31 +160,107 @@ Survey Repository
 
 ### 3. 절차 및 실행
 
-**템플릿 설정**
+### 템플릿 설정
+
 <img src="https://user-images.githubusercontent.com/92367032/199533812-c2f64055-93c4-4afd-b22c-fa3f617d697d.png"/>
+
+1.  탐색 창에서 시작 템플릿을 선택한 다음 시작 템플릿 생성을 선택합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199534108-a517c79f-537d-4ffc-9264-606199551db6.png"/>
+
+2. Launch template name에 대해 실행 템플릿의 설명이 포함된 이름을 입력합니다.
+3. [템플릿 버전 설명(Template version description)]에 시작 템플릿의 이 버전에 대한 간단한 설명을 입력합니다.
+4. [Auto Scaling 지침(Auto Scaling guidance)]에서 확인란을 선택하여 Amazon EC2에서 Auto Scaling와 함께 사용할 템플릿을 생성하는 데 도움이 되는 지침을 제공하도록 합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199534105-31a870a2-0e58-44c6-919f-df06cffade9c.png"/>
+
+5. 사용하고자 하는 AMI와 인스턴스 유형을 선택합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199534101-0058ba48-d41e-4fa0-9074-2f4f8c856c58.png"/>
+
+6. Create key pair(키 페어 생성)를 선택합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199534095-0b5df1a3-7940-42f2-aa9e-6dd1e1f3f9a0.png"/>
+
+7. 이름에 키 페어를 설명하는 이름을 입력합니다. Amazon EC2는 사용자가 키 이름으로 지정한 이름에 퍼블릭 키를 연결합니다. 키 이름에는 최대 255자의 ASCII 문자를 포함할 수 있습니다. 선행 또는 후행 공백을 포함할 수 없습니다.
+8. 키 페어 유형(Key pair type)에서 RSA 또는 ED25519를 선택합니다.
+9. 프라이빗 키 파일 형식(Private key file format)에서 프라이빗 키를 저장할 형식을 선택합니다. OpenSSH에서 사용할 수 있는 형식으로 프라이빗 키를 저장하려면 pem을 선택합니다. PuTTY에서 사용할 수 있는 형식으로 프라이빗 키를 저장하려면 ppk를 선택합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199534084-c3e39459-b1bd-4819-be50-2670be224d93.png"/>
 
-**Auto-Scailing 설정**
+10. 네트워크 설정에서 네트워크 인터페이스를 생성을 선택합니다.
+11. 네트워크 인터페이스에서 새 인터페이스를 선택합니다.
+12. 보안그룹은 default를 선택합니다.
+13. 퍼블릭 IP 주소는 인터넷을 통해 연결할 수 있는 IPv4 주소입니다. 퍼블릭 IP 자동할당을 활성화합니다.
+14. 연결된 인스턴스를 종료할 때 네트워크 인터페이스를 자동으로 삭제하도록 선택합니다.
+15. 시작 템플릿 생성을 선택합니다.
+
+### Auto-Scailing 설정
 <img src="https://user-images.githubusercontent.com/92367032/199534815-ee37730a-5c1e-4f33-9b33-4f694fbac8b2.png"/>
+
+1. 탐색 창에서 Auto-Scailing을 선택한 다음 Auto-Scailing 생성을 선택합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199534814-cfca7104-281e-4ed6-9e27-3f3d96414e76.png"/>
+
+2. Auto Scailing 그룹을 식별할 이름을 입력합니다.
+3. 사용할 시작 템플릿을 선택합니다.
+4. 다음을 클릭합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199534810-b9baf530-fbb5-402f-9604-51e047a7eaef.png"/>
+
+5. 인스턴스 시작되는 네트워크 환경을 구축하기 위해 가용영역 및 서브넷을 사용해야 합니다. 굳이 하나만 사용해야할 이유가 없다면 모두 선택합니다.
+6. 다음을 클릭합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199534803-e50b98ae-fdbc-4cac-918e-cdac842a8462.png"/>
+
+7. 로드 밸런싱은 이후에 설정할 것입니다. 다음을 클릭합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199534799-b33c92e3-dfb4-4dc8-bb73-432ab97f40fa.png"/>
+
+8. Auto Scailing 그룹의 인스턴스 수를 조작할 수 있습니다. 원하는 용량, 최소 용량, 최대 용량을 입력합니다.
+9. 다음을 클릭합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199534797-80e57b0f-d3f2-4826-8f82-40b76aa737c7.png"/>
+
+10. 다음을 클릭합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199534791-c40d39a6-d246-4d88-a5e9-97dc96092eff.png"/>
+
+11. 태그를 추가합니다.
+12. 다음을 클릭합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199534785-823c3f57-210f-4ed6-a345-b7e3077fc519.png"/>
 
-**보안그룹 설정**
+13. Auto Scailing 그룹 생성을 클릭합니다.
+
+### 보안그룹 설정
 <img src="https://user-images.githubusercontent.com/92367032/199537013-ed01bf42-ca0f-404c-8b24-379123551430.png"/>
+
+1. 탐색 창에서 보안 그룹을 선택한 다음 보안 그룹 생성을 선택합니다.
+2. 보안 그룹을 식별할 이름을 입력합니다.
+3. 보안 그룹에 대한 간단한 설명을 입력합니다
+4. 외부에서 해당 EC2로의 접근을 허용/제한하는 인바운드 규칙를 작성합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199537008-015ef8a9-7cca-40bf-9960-4706c0ac42de.png"/>
+
+5. 보안 그룹 생성을 클릭합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199536995-e78350d7-9536-459b-912a-c55a31061801.png"/>
 
-**인스턴스에 서버 설치 및 실행**
+6. 생성했던 시작탬플릿을 수정합니다.
+7. [템플릿 버전 설명(Template version description)]에 시작 템플릿의 이 버전에 대한 간단한 설명을 입력합니다.
+8. [Auto Scaling 지침(Auto Scaling guidance)]에서 확인란을 선택하여 Amazon EC2에서 Auto Scaling와 함께 사용할 템플릿을 생성하는 데 도움이 되는 지침을 제공하도록 합니다.
+9. 네트워크 설정에서 생성한 보안 그룹을 선택합니다.
+10. 탬플릿 버전 생성을 클릭합니다.
+
+### 인스턴스에 서버 설치 및 실행
 <img src="https://user-images.githubusercontent.com/92367032/199538833-175e267d-710d-4fde-a165-9c8680caab89.png"/>
+
+위 명령어 이전에 macOS 또는 Linux 컴퓨터에서 SSH 클라이언트를 사용하여 Linux 인스턴스에 연결하려면 사용자만 프라이빗 키 파일을 읽을 수 있도록 다음 명령으로 해당 파일의 권한을 설정합니다.
+
+```
+chmod 400 key-pair-name.pem
+```
 
 #### 1. 인스턴스에 개발 환경 구축하기
 
@@ -237,25 +327,76 @@ $ authbind --deep pm2 start dist/main.js
 
 명령어를 통해 서버를 다시 실행합니다.
 
-**AMI Snapshot 설정**
+### AMI 이미지 생성
 <img src="https://user-images.githubusercontent.com/92367032/199546560-a5bd0574-ec23-488f-8752-a8c51ac6eace.png"/>
+
+1. AMI의 기본으로 사용할 인스턴스를 마우스 오른쪽 버튼으로 클릭하고 컨텍스트 메뉴에서 이미지 생성을 선택합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199546558-46a97caa-829c-40bc-92e8-34f369d0728a.png"/>
+
+2. AMI를 식별할 이름을 입력합니다.
+3. AMI에 대한 간단한 설명을 입력합니다
+4. 재부팅 안 함을 활성화합니다.
+* 기본적으로 Amazon EC2는 인스턴스를 종료하고, 연결된 볼륨의 스냅샷을 캡처하고, AMI를 생성하여 등록한 다음 인스턴스를 재부팅합니다.
+5. 이미지 생성을 클릭합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199546552-99927433-24a7-434b-9d12-7592f480fe62.png"/>
+
+6. AMI의 상태가 대기중입니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199546549-d0005216-905f-42cb-8dd7-5fb6f901c0ef.png"/>
+
+7. AMI를 사용 할 수 있습니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199546538-99a1daa6-0cd2-42e2-a521-ad6bcc4500de.png"/>
 
-**대상 그룹 설정**
+8. 생성했던 시작탬플릿을 수정합니다.
+9. [템플릿 버전 설명(Template version description)]에 시작 템플릿의 이 버전에 대한 간단한 설명을 입력합니다.
+10. [Auto Scaling 지침(Auto Scaling guidance)]에서 확인란을 선택하여 Amazon EC2에서 Auto Scaling와 함께 사용할 템플릿을 생성하는 데 도움이 되는 지침을 제공하도록 합니다.
+11. 네트워크 설정에서 생성한 보안 그룹을 선택합니다.
+12. 탬플릿 버전 생성을 클릭합니다.
+
+### 대상 그룹 설정
 <img src="https://user-images.githubusercontent.com/92367032/199547248-20a8cb9b-bd4b-4e5e-91e5-0924678dbd3c.png"/>
+
+1. 탐색 창에서 대상 그룹을 선택한 다음 대상 그룹 생성을 선택합니다.
+2. 대상 그룹의 유형을 선택합니다.
+3. 대상 그룹을 식별할 이름을 입력합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199547243-c0441790-1379-4996-a68c-4030775b2fbb.png"/>
+
+4. 다음을 클릭합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199547239-669ca3b6-0971-4ccc-b1ac-795fb4d61c4a.png"/>
+
+5. 사용 가능한 인스턴스들을 클릭하고 대상그룹에 등록합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199547232-af32894d-bebb-4b75-8658-101da9651e1c.png"/>
 
-**로드 밸런서 설정**
+6. 대상 그룹 생성을 클릭합니다.
+
+### 로드 밸런서 설정
 <img src="https://user-images.githubusercontent.com/92367032/199547758-1302beec-f176-4910-892d-e8ba25598dbe.png"/>
+
+1. 탐색 창에서 로드밸런서를 선택한 다음 로드 밸런서 생성을 선택합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199547754-4bbf4c3c-76ad-4755-a2f6-50cea92bc59c.png"/>
+
+2. Application Load Balancer를 선택합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199547751-0ae225ed-c768-4bd8-aeab-ca5bc321661e.png"/>
+
+3. 로드 밸런서를 식별할 이름을 입력합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199547747-89d9eb13-c8a3-4825-a74e-7d5d0e6858da.png"/>
+
+4. 사용할 가용영역을 선택합니다.
+
 <img src="https://user-images.githubusercontent.com/92367032/199547743-43c2fadf-ea53-4dcf-b028-e6dbcfe82599.png"/>
+
+5. 기존에 생성한 보안 그룹을 선택합니다.
+6. 기존에 생성한 대상 그룹을 선택합니다. 
+7. 로드 밸런서 생성을 클릭합니다.
 
 ## API 문서
 
