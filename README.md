@@ -200,43 +200,44 @@ Survey Repository
 
 1. 탐색 창에서 Auto-Scailing을 선택한 다음 Auto-Scailing 생성을 선택합니다.
 
-<img src="https://user-images.githubusercontent.com/92367032/199534814-cfca7104-281e-4ed6-9e27-3f3d96414e76.png"/>
+<img src="https://user-images.githubusercontent.com/92367032/199679848-563150cd-cf8b-4d7f-af79-b40dde7f2ad3.png"/>
 
 2. Auto Scailing 그룹을 식별할 이름을 입력합니다.
 3. 사용할 시작 템플릿을 선택합니다.
-4. 다음을 클릭합니다.
+4. 시작 템플릿의 버전을 항상 최신으로 유지합니다.
+5. 다음을 클릭합니다.
 
 <img src="https://user-images.githubusercontent.com/92367032/199534810-b9baf530-fbb5-402f-9604-51e047a7eaef.png"/>
 
-5. 인스턴스 시작되는 네트워크 환경을 구축하기 위해 가용영역 및 서브넷을 사용해야 합니다. 굳이 하나만 사용해야할 이유가 없다면 모두 선택합니다.
-6. 다음을 클릭합니다.
+6. 인스턴스 시작되는 네트워크 환경을 구축하기 위해 가용영역 및 서브넷을 사용해야 합니다. 굳이 하나만 사용해야할 이유가 없다면 모두 선택합니다.
+7. 다음을 클릭합니다.
 
 <img src="https://user-images.githubusercontent.com/92367032/199534803-e50b98ae-fdbc-4cac-918e-cdac842a8462.png"/>
 
-7. 로드 밸런싱은 이후에 설정할 것입니다. 다음을 클릭합니다.
+8. 로드 밸런싱은 이후에 설정할 것입니다. 다음을 클릭합니다.
 
 <img src="https://user-images.githubusercontent.com/92367032/199659157-ae18ef0b-8e4e-4d1f-9daf-4c4c49d8c7d2.png"/>
 
-8. Auto Scailing 그룹의 인스턴스 수를 조작할 수 있습니다. 원하는 용량, 최소 용량, 최대 용량을 입력합니다.
+9. Auto Scailing 그룹의 인스턴스 수를 조작할 수 있습니다. 원하는 용량, 최소 용량, 최대 용량을 입력합니다.
 
 <img src="https://user-images.githubusercontent.com/92367032/199658457-3c13ce74-f4cb-4c1a-aa6f-ba49c4b99f1f.png"/>
 
-9. 크기 조정 정책을 사용하여 Auto Scailing 그룹의 크기를 동적으로 관리합니다.
-10. 필요한 지표 유형을 선택합니다. (본 서비스의 경우 '평균 CPU 사용률' 70%를 기준으로 확장되게 선택했습니다.)
-11. 다음을 클릭합니다.
+10. 크기 조정 정책을 사용하여 Auto Scailing 그룹의 크기를 동적으로 관리합니다.
+11. 필요한 지표 유형을 선택합니다. (본 서비스의 경우 '평균 CPU 사용률' 70%를 기준으로 확장되게 선택했습니다.)
+12. 다음을 클릭합니다.
 
 <img src="https://user-images.githubusercontent.com/92367032/199534797-80e57b0f-d3f2-4826-8f82-40b76aa737c7.png"/>
 
-12. 다음을 클릭합니다.
+13. 다음을 클릭합니다.
 
 <img src="https://user-images.githubusercontent.com/92367032/199534791-c40d39a6-d246-4d88-a5e9-97dc96092eff.png"/>
 
-13. 태그를 추가합니다.
-14. 다음을 클릭합니다.
+14. 태그를 추가합니다.
+15. 다음을 클릭합니다.
 
 <img src="https://user-images.githubusercontent.com/92367032/199534785-823c3f57-210f-4ed6-a345-b7e3077fc519.png"/>
 
-15. Auto Scailing 그룹 생성을 클릭합니다.
+16. Auto Scailing 그룹 생성을 클릭합니다.
 
 ### 보안그룹 설정
 <img src="https://user-images.githubusercontent.com/92367032/199537013-ed01bf42-ca0f-404c-8b24-379123551430.png"/>
@@ -277,10 +278,12 @@ chmod 400 key-pair-name.pem
 
 먼저 nvm 설치는 [NVM GitHub 페이지](https://github.com/nvm-sh/nvm)의 Install & Update Script 부분을 참조하여 진행합니다.
 
+nvm 설치가 완료되면 터미널을 한 번 종료하고 다시 시작합니다.
+
 다음으로는 node.js를 설치합니다. 터미널에 아래 명령어를 입력하여 설치를 진행합니다.
 
 ```bash
-$ nvm install node
+$ nvm install --lts
 ```
 
 node.js의 설치가 끝나면 npm 명령어가 정상적으로 입력되지 않는 상황을 방지하기 위해서 터미널에
@@ -302,6 +305,10 @@ $ sudo apt install npm
 `survey-api` 폴더로 이동한 뒤, `npm install` 명령어를 입력해서 필요한 모듈을 다운 받습니다.
 
 폴더에서 .env 파일을 생성하여 [환경변수](#환경-변수-설정)를 작성합니다.
+
+`src` 폴더로 이동한 뒤, main.ts 파일에서 서버의 포트 번호를 80으로 변경합니다.
+
+`survey-api` 폴더로 이동한 뒤, `npm start` 명령어를 입력해서 dist 폴더를 생성합 니다.
 
 #### 3. EC2 인스턴스에서 서버 실행하기
 
@@ -360,8 +367,9 @@ $ authbind --deep pm2 start dist/main.js
 8. 생성했던 시작탬플릿을 수정합니다.
 9. [템플릿 버전 설명(Template version description)]에 시작 템플릿의 이 버전에 대한 간단한 설명을 입력합니다.
 10. [Auto Scaling 지침(Auto Scaling guidance)]에서 확인란을 선택하여 Amazon EC2에서 Auto Scaling와 함께 사용할 템플릿을 생성하는 데 도움이 되는 지침을 제공하도록 합니다.
-11. 네트워크 설정에서 생성한 보안 그룹을 선택합니다.
-12. 탬플릿 버전 생성을 클릭합니다.
+11. 생성한 AMI를 선택합니다.
+12. 네트워크 설정에서 생성한 보안 그룹을 선택합니다.
+13. 탬플릿 버전 생성을 클릭합니다.
 
 ### 대상 그룹 설정
 <img src="https://user-images.githubusercontent.com/92367032/199547248-20a8cb9b-bd4b-4e5e-91e5-0924678dbd3c.png"/>
@@ -430,7 +438,7 @@ $ authbind --deep pm2 start dist/main.js
 
 ```http
 POST /surveys  HTTP/1.1
-Host: MySurveyALB-1333010105.ap-northeast-2.elb.amazonaws.com
+Host: MuSurveyALB-886032693.ap-northeast-2.elb.amazonaws.com
 Content-type: Application/JSON
 
 {
@@ -449,7 +457,7 @@ Content-type: Application/JSON
 
 {
     "name": "홍길동",
-    "email": "dhrjdn@gmail.com",
+    "email": "hong@gmail.com",
     "phoneNumber": "+8221111111",
     "agreement": true,
     "_id": "636280231c8053ec137209da"
