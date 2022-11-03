@@ -215,23 +215,28 @@ Survey Repository
 
 7. 로드 밸런싱은 이후에 설정할 것입니다. 다음을 클릭합니다.
 
-<img src="https://user-images.githubusercontent.com/92367032/199534799-b33c92e3-dfb4-4dc8-bb73-432ab97f40fa.png"/>
+<img src="https://user-images.githubusercontent.com/92367032/199659157-ae18ef0b-8e4e-4d1f-9daf-4c4c49d8c7d2.png"/>
 
 8. Auto Scailing 그룹의 인스턴스 수를 조작할 수 있습니다. 원하는 용량, 최소 용량, 최대 용량을 입력합니다.
-9. 다음을 클릭합니다.
+
+<img src="https://user-images.githubusercontent.com/92367032/199658457-3c13ce74-f4cb-4c1a-aa6f-ba49c4b99f1f.png"/>
+
+9. 크기 조정 정책을 사용하여 Auto Scailing 그룹의 크기를 동적으로 관리합니다.
+10. 필요한 지표 유형을 선택합니다. (본 서비스의 경우 '평균 CPU 사용률' 70%를 기준으로 확장되게 선택했습니다.)
+11. 다음을 클릭합니다.
 
 <img src="https://user-images.githubusercontent.com/92367032/199534797-80e57b0f-d3f2-4826-8f82-40b76aa737c7.png"/>
 
-10. 다음을 클릭합니다.
+12. 다음을 클릭합니다.
 
 <img src="https://user-images.githubusercontent.com/92367032/199534791-c40d39a6-d246-4d88-a5e9-97dc96092eff.png"/>
 
-11. 태그를 추가합니다.
-12. 다음을 클릭합니다.
+13. 태그를 추가합니다.
+14. 다음을 클릭합니다.
 
 <img src="https://user-images.githubusercontent.com/92367032/199534785-823c3f57-210f-4ed6-a345-b7e3077fc519.png"/>
 
-13. Auto Scailing 그룹 생성을 클릭합니다.
+15. Auto Scailing 그룹 생성을 클릭합니다.
 
 ### 보안그룹 설정
 <img src="https://user-images.githubusercontent.com/92367032/199537013-ed01bf42-ca0f-404c-8b24-379123551430.png"/>
@@ -254,13 +259,15 @@ Survey Repository
 10. 탬플릿 버전 생성을 클릭합니다.
 
 ### 인스턴스에 서버 설치 및 실행
-<img src="https://user-images.githubusercontent.com/92367032/199538833-175e267d-710d-4fde-a165-9c8680caab89.png"/>
-
-위 명령어 이전에 macOS 또는 Linux 컴퓨터에서 SSH 클라이언트를 사용하여 Linux 인스턴스에 연결하려면 사용자만 프라이빗 키 파일을 읽을 수 있도록 다음 명령으로 해당 파일의 권한을 설정합니다.
+우선 macOS 또는 Linux 컴퓨터에서 SSH 클라이언트를 사용하여 Linux 인스턴스에 연결하려면 사용자만 프라이빗 키 파일을 읽을 수 있도록 다음 명령으로 해당 파일의 권한을 설정합니다.
 
 ```
 chmod 400 key-pair-name.pem
 ```
+
+다음으로는 아래의 명령어를 입력합니다.
+
+<img src="https://user-images.githubusercontent.com/92367032/199538833-175e267d-710d-4fde-a165-9c8680caab89.png"/>
 
 #### 1. 인스턴스에 개발 환경 구축하기
 
@@ -375,6 +382,20 @@ $ authbind --deep pm2 start dist/main.js
 
 6. 대상 그룹 생성을 클릭합니다.
 
+<img src="https://user-images.githubusercontent.com/92367032/199661737-6259d523-3e28-46d4-9b71-cb8ec2f4ffa8.png"/>
+
+7. 생성한 Auto-Scailing 그룹으로 이동합니다. 
+
+<img src="https://user-images.githubusercontent.com/92367032/199661735-41cf4a54-d023-4e84-9871-a9461d0ba553.png"/>
+
+8. Auto-Scailing 그룹의 로드 밸런싱의 편집을 선택합니다.
+
+<img src="https://user-images.githubusercontent.com/92367032/199661731-5973c75f-e568-4390-8539-5f631f4275cf.png"/>
+
+9. 애플리케이션, 네트워크 또는 게이트웨이 로드 밸런서 대상 그룹을 선택합니다.
+10. 생성한 대상 그룹을 선택합니다.
+11. 업데이트를 선택하여 로드 밸런서가 동작될 때, 실제로 트래픽을 분산하는 대상이 되게 설정합니다.
+
 ### 로드 밸런서 설정
 <img src="https://user-images.githubusercontent.com/92367032/199547758-1302beec-f176-4910-892d-e8ba25598dbe.png"/>
 
@@ -395,7 +416,10 @@ $ authbind --deep pm2 start dist/main.js
 <img src="https://user-images.githubusercontent.com/92367032/199547743-43c2fadf-ea53-4dcf-b028-e6dbcfe82599.png"/>
 
 5. 기존에 생성한 보안 그룹을 선택합니다.
-6. 기존에 생성한 대상 그룹을 선택합니다. 
+6. 기존에 생성한 대상 그룹을 선택합니다.
+
+<img src="https://user-images.githubusercontent.com/92367032/199659823-99833d62-4769-4215-ae19-82f4228c0742.png"/>
+
 7. 로드 밸런서 생성을 클릭합니다.
 
 ## API 문서
